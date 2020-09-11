@@ -1,8 +1,12 @@
-create databse authdb;
+create database authdb;
 
 use authdb;
 
-create table User {
+
+CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'newuser';
+GRANT ALL PRIVILEGES ON *.* TO 'newuser'@'localhost';
+
+create table User (
 	id int primary key NOT NULL AUTO_INCREMENT,
 	userName varchar(100),
 	email varchar(100),
@@ -10,18 +14,18 @@ create table User {
 	personId int,
 	createDate varchar(100),
 	modificationDate varchar(100)
-	}
+	);
 
-create table Role {
+create table Role (
 	id int primary key NOT NULL AUTO_INCREMENT,
 	roleName varchar(100),
 	description text,
 	createDate varchar(100),
 	modificationDate varchar(100),
 	lastModificationUser varchar(100)
-	}
+	);
 
-create table UserRole {
+create table UserRole (
 	id int primary key NOT NULL AUTO_INCREMENT,
 	userId int NOT NULL,
 	roleId int NOT NULL,
@@ -29,18 +33,18 @@ create table UserRole {
 	createDate varchar(100),
 	modificationDate varchar(100),
 	lastModificationUser varchar(100)
-	}
+	);
 
-create table Permission {
+create table Permission (
 	id int primary key NOT NULL AUTO_INCREMENT,
 	permissionName varchar(100),
 	permissionDescription text,
 	createDate varchar(100),
 	modificationDate varchar(100),
 	lastModificationUser varchar(100)
-	}
+	);
 
-create table RolePermission {
+create table RolePermission (
 	id int primary key NOT NULL AUTO_INCREMENT,
 	roleId int NOT NULL,
 	permissionId int NOT NULL,
@@ -48,8 +52,7 @@ create table RolePermission {
 	createDate varchar(100),
 	modificationDate varchar(100),
 	lastModificationUser varchar(100)
-	}
-
+	);
 
 
 
