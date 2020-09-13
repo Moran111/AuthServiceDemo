@@ -16,6 +16,8 @@ create table User (
 	modificationDate varchar(100)
 	);
 
+ALTER TABLE User
+ADD CONSTRAINT UC_User UNIQUE (email,userName,personId);
 
 create table Role (
 	id int primary key NOT NULL AUTO_INCREMENT,
@@ -74,6 +76,7 @@ REFERENCES Permission (id)
 ;
 
 
+
 insert into User values (default, "admin", "admin@gmail.com", "admin", "1", "09-12-2020", "09-12-2020");
 
 insert into Role values (default, "admin", "admin", "09-12-2020", "09-12-2020", "admin");
@@ -82,7 +85,10 @@ insert into Role values (default, "normal", "normal", "09-12-2020", "09-12-2020"
 insert into UserRole values (default, "1", "1", "y" ,"09-12-2020", "09-12-2020", "admin");
 
 insert into Permission values (default, "All_Database", "admin", "09-12-2020", "09-12-2020", "admin");
+insert into Permission values (default, "All_Database", "normal", "09-12-2020", "09-12-2020", "admin");
 	
 insert into RolePermission values (default, "1", "1", "y" ,"09-12-2020", "09-12-2020", "admin");
+
+
 
 

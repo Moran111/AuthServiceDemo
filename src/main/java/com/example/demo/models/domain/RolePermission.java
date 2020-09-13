@@ -6,6 +6,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 @Entity
 @Table(name = "RolePermission")
@@ -36,4 +38,11 @@ public class RolePermission implements Serializable{
 
     @Column(name = "lastModificationUser")
     private String lastModificationUser;
+
+    public RolePermission () {
+        this.activeFlag = "Y";
+        this.createDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        this.modificationDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        this.lastModificationUser = "admin";
+    }
 }

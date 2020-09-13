@@ -28,21 +28,10 @@ public abstract class AbstractHibernateDAO<T extends Serializable> {
 
     public void store (T clazz) {
         System.out.println("go to DAO Abstract store method");
-        getCurrentSession().persist(clazz);
+        getCurrentSession().save(clazz);
     }
 
-    public T checkIfExistInDB (String searchName, T inputName) {
-        Session session = getCurrentSession();
-        CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<T> cr = cb.createQuery(clazz);
-        Root<T> root = cr.from(clazz);
 
-        Predicate predicate = root.get(searchName).in(Arrays.asList(inputName));
-        cr.select(root).where(predicate);
-
-        return session.createQuery(cr).getSingleResult();
-    }
-    
     protected Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
     }

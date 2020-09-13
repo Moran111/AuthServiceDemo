@@ -6,6 +6,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Entity
@@ -31,12 +32,17 @@ public class User implements Serializable {
     private int personId;
 
     @Column(name = "createDate")
-    private String createDate;
+    private String createDate =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());;
 
     @Column(name = "modificationDate")
-    private String modificationDate;
+    private String modificationDate =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());;
 
     @OneToMany(mappedBy="userId")
     private List<UserRole> userRoles;
+
+    public User() {
+        this.createDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        this.modificationDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+    }
 
 }

@@ -46,53 +46,19 @@ public class UserDaoImple extends AbstractHibernateDAO implements UserDaoInter{
     }
 
     @Override
-    public boolean existByUserName(String userName, String input) {
-        User result = (User) checkIfExistInDB(userName, input);
-        if (result == null) {
-            // doesn't exist
-            return false;
-        }
-        return result.getUserName().equals(input);
-    }
-
-    @Override
-    public boolean existByEmail(String email, String input) {
-        User result = (User) checkIfExistInDB(email, input);
-        if (result == null) {
-            // doesn't exist
-            return false;
-        }
-        return result.getEmail().equals(input);
-    }
-
-    @Override
-    public boolean existByPersonId(String personId, int input) {
-        User result = (User) checkIfExistInDB(personId, input);
-        if (result == null) {
-            // doesn't exist
-            return false;
-        }
-        return result.getPersonId() == input;
-    }
-
-    @Override
     public void addUser(User user) throws ExistInDBException {
+
         Transaction transaction = getCurrentSession().beginTransaction();
         try {
             // if exist in database, throw exception
-            if (existByUserName("userName", user.getUserName()) ||
-                existByEmail("email", user.getEmail()) ||
-                    existByPersonId("personId", user.getPersonId())) {
-                throw new ExistInDBException("user exist in database");
-            }
             // if not store in db and commit it
             store(user);
             transaction.commit();
         } catch (Exception e) {
-            System.out.println("duplicate isbn inserted");
             if (transaction != null) {
                 transaction.rollback();
             }
+            throw new ExistInDBException("user name, user email or user personal id exist in db");
         }
     }
 

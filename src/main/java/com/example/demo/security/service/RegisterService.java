@@ -4,10 +4,7 @@ import com.example.demo.Dao.PermissionDaoInter;
 import com.example.demo.Dao.RoleDaoInter;
 import com.example.demo.Dao.UserDaoInter;
 import com.example.demo.Exception.ExistInDBException;
-import com.example.demo.models.domain.PermissioinDomain;
-import com.example.demo.models.domain.RolePermission;
-import com.example.demo.models.domain.User;
-import com.example.demo.models.domain.UserRole;
+import com.example.demo.models.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,11 +31,13 @@ public class RegisterService {
     }
 
     // add user, role, permission, user role, role permissioin
-    public void addUer (User user, UserRole userRole) throws ExistInDBException {
+    public void addUser (User user) throws ExistInDBException {
+        System.out.println("access register service addUser function");
         this.userDaoInter.addUser(user);
     }
 
     public void addUserRole (UserRole userRole) {
+        System.out.println("adding User Role in register service");
         this.roleDaoInter.addUserRole(userRole);
     }
 
@@ -48,6 +47,14 @@ public class RegisterService {
 
     public void addRolePermissioin (RolePermission rolePermission) {
         this.permissionDaoInter.addRolePermission(rolePermission);
+    }
+
+    public Role findRoleById (int roleId) {
+        return roleDaoInter.findRoleByRoleId(roleId);
+    }
+
+    public PermissioinDomain findPermissionById (int permissionId) {
+        return permissionDaoInter.findPermissionById(permissionId);
     }
 
 }

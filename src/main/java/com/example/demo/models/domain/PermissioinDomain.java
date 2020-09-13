@@ -4,10 +4,12 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 @Entity
-@Table(name = "Permissioin")
+@Table(name = "Permission")
 @Data
 public class PermissioinDomain implements Serializable{
 
@@ -33,4 +35,10 @@ public class PermissioinDomain implements Serializable{
 
     @OneToMany(mappedBy="permissionId")
     List<RolePermission> rolePermissionList;
+
+    public PermissioinDomain() {
+        this.createDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        this.modificationDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        this.lastModificationUser = "admin";
+    }
 }

@@ -14,9 +14,8 @@ public class PermissionDaoImple extends AbstractHibernateDAO implements Permissi
     }
 
     @Override
-    public PermissioinDomain findPermissionByRoleId(int roleId) {
-
-        return null;
+    public PermissioinDomain findPermissionById(int permissionId) {
+        return getCurrentSession().get(PermissioinDomain.class, permissionId);
     }
 
     @Override

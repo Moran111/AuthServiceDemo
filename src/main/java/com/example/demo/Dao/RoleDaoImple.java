@@ -60,13 +60,14 @@ public class RoleDaoImple extends AbstractHibernateDAO implements RoleDaoInter{
 
     @Override
     public void addUserRole(UserRole userRole) {
+        System.out.println("accessing addUserRole in Role Interface");
         Transaction transaction = getCurrentSession().beginTransaction();
 
         try {
-            store(userRole);
+            getCurrentSession().save(userRole);
             transaction.commit();
         } catch (Exception e) {
-            System.out.println("User id or role id dosen't exist in user table or role table");
+            // System.out.println("User id or role id dosen't exist in user table or role table");
             if (transaction != null) {
                 transaction.rollback();
             }

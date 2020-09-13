@@ -6,6 +6,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 @Entity
 @Table(name = "UserRole")
@@ -15,9 +17,6 @@ public class UserRole implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-
-//    @Column(name = "userId")
-//    private int userId;
 
     @ManyToOne
     @JoinColumn(name = "roleId", nullable = false)
@@ -38,4 +37,12 @@ public class UserRole implements Serializable {
     @ManyToOne
     @JoinColumn(name = "userId", nullable = false)
     private User userId;
+
+
+    public UserRole () {
+        this.activeFlag = "Y";
+        this.createDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        this.modificationDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+    }
+
 }

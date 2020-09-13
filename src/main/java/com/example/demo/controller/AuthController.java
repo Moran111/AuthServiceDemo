@@ -1,8 +1,12 @@
 package com.example.demo.controller;
 
+import com.example.demo.Exception.ExistInDBException;
 import com.example.demo.models.domain.Role;
 import com.example.demo.models.common.ServiceStatus;
+import com.example.demo.models.domain.RolePermission;
 import com.example.demo.models.domain.User;
+import com.example.demo.models.domain.PermissioinDomain;
+import com.example.demo.models.domain.UserRole;
 import com.example.demo.models.request.LoginRequest;
 import com.example.demo.models.request.RegisterRequest;
 import com.example.demo.models.response.LoginResponse;
@@ -46,9 +50,47 @@ public class AuthController {
 
     @PostMapping("/register")
     public RegisterResponse register (HttpServletResponse httpServletResponse,@RequestBody RegisterRequest request) {
+        RegisterResponse response = new RegisterResponse();
         // put in db
         // redirect to login page
+        // user info
+        String userName = request.getUserName();
+        String userEmail = request.getUserEmail();
+        String password = request.getPassword();
+        String personId = request.getPersonId();
+
+        int roleId = request.getRoleId();
+        String roleDescription = request.getRoleDescription();
+
+        int permissionId = request.getPermissionId();
+
+        // add user
+        User user = new User();
+        user.setEmail(userEmail);
+        user.setPassword(password);
+        user.setUserName(userName);
+        user.setPersonId(Integer.parseInt(personId));
+        try {
+            System.out.println("read to add user in controller");
+            registerService.addUser(user);
+        } catch(ExistInDBException e) {
+            prepareRegisterResponse(response, false, "User name , User email or User Personal Id exist in database");
+            return response;
+        }
+
+        // find role given role Id
+        Role role = registerService.findRoleById(roleId);
+
+       // add user_role
+        UserRole userRole = new UserRole();
+        userRole.setRoleId(role);
+        userRole.setUserId(user);
+        System.out.println("before adding User Role function");
+        registerService.addUserRole(userRole);
         
+        prepareRegisterResponse(response, true, "");
+        response.setUsername(userName);
+        return response;
     }
 
     @RequestMapping("/login")
@@ -94,6 +136,10 @@ public class AuthController {
     }
 
     private void prepareResponse(LoginResponse response, boolean success, String errorMessage) {
+        response.setServiceStatus(new ServiceStatus(success ? "SUCCESS" : "FAILED", success, errorMessage));
+    }
+
+    private void prepareRegisterResponse(RegisterResponse response, boolean success, String errorMessage) {
         response.setServiceStatus(new ServiceStatus(success ? "SUCCESS" : "FAILED", success, errorMessage));
     }
 
