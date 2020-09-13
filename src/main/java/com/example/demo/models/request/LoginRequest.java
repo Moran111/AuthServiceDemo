@@ -1,2 +1,11 @@
-package com.example.demo.models.request;public class LoginRequest {
+package com.example.demo.models.request;
+
+import lombok.Data;
+
+@Data
+public class LoginRequest {
+
+    private String username;
+    private String password;
+
 }

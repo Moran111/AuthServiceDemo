@@ -1,5 +1,7 @@
-package com.example.demo.models;
+package com.example.demo.models.domain;
 
+import com.example.demo.models.domain.Role;
+import com.example.demo.models.domain.User;
 import lombok.Data;
 
 import javax.persistence.*;

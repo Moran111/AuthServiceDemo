@@ -1,2 +1,4 @@
-package com.example.demo.models.response;public class RegisterResponse {
+package com.example.demo.models.response;
+
+public class RegisterResponse {
 }

@@ -4,7 +4,9 @@ import com.example.demo.models.domain.Role;
 import com.example.demo.models.common.ServiceStatus;
 import com.example.demo.models.domain.User;
 import com.example.demo.models.request.LoginRequest;
+import com.example.demo.models.request.RegisterRequest;
 import com.example.demo.models.response.LoginResponse;
+import com.example.demo.models.response.RegisterResponse;
 import com.example.demo.security.jwt.CookieUtil;
 import com.example.demo.security.jwt.JwtUtil;
 import com.example.demo.security.service.LoginService;
@@ -19,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 @RestController
-public class LoginController {
+public class AuthController {
 
     private static final String jwtTokenCookieName = "JWT-TOKEN";
     private static final String signingKey = "signingKey";
@@ -35,6 +37,18 @@ public class LoginController {
     @Autowired
     public void setRegisterService(RegisterService registerService){
         this.registerService = registerService;
+    }
+
+    @RequestMapping("/register")
+    public String register() {
+        return "Register Page";
+    }
+
+    @PostMapping("/register")
+    public RegisterResponse register (HttpServletResponse httpServletResponse,@RequestBody RegisterRequest request) {
+        // put in db
+        // redirect to login page
+        
     }
 
     @RequestMapping("/login")

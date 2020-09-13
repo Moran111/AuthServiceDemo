@@ -1,8 +1,8 @@
 package com.example.demo.Exception;
 
-public class SearchItemNotExistException extends Exception{
+public class ExistInDBException extends Exception{
 
-    public SearchItemNotExistException(String s) {
+    public ExistInDBException(String s) {
         super(s);
     }
 

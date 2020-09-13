@@ -1,6 +1,7 @@
-package com.example.demo.models;
+package com.example.demo.models.domain;
 
 
+import com.example.demo.models.domain.Role;
 import lombok.Data;
 import java.io.Serializable;
 
@@ -36,6 +37,6 @@ public class User implements Serializable {
     private String modificationDate;
 
     @OneToMany(mappedBy="userId")
-    private List<Role> userRoles;
+    private List<UserRole> userRoles;
 
 }

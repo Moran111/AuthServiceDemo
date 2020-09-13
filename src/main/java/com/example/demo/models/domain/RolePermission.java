@@ -1,6 +1,7 @@
-package com.example.demo.models;
+package com.example.demo.models.domain;
 
 
+import com.example.demo.models.domain.PermissioinDomain;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,8 +21,9 @@ public class RolePermission implements Serializable{
     @JoinColumn(name="permissionId", nullable=false)
     private PermissioinDomain permissionId;
 
-    @Column(name = "roleId")
-    private int roleId;
+    @ManyToOne
+    @JoinColumn(name = "roleId", nullable=false)
+    private Role roleId;
 
     @Column(name = "activeFlag")
     private String activeFlag;

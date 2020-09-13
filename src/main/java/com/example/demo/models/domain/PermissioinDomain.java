@@ -1,9 +1,10 @@
-package com.example.demo.models;
+package com.example.demo.models.domain;
 
 import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "Permissioin")
@@ -29,4 +30,7 @@ public class PermissioinDomain implements Serializable{
 
     @Column(name = "lastModificationUser")
     private String lastModificationUser;
+
+    @OneToMany(mappedBy="permissionId")
+    List<RolePermission> rolePermissionList;
 }
